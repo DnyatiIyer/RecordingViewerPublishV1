@@ -1,0 +1,107 @@
+	body{
+		 background-color: #012433;
+    height: 100%;
+    width: 100%;
+    font-family: Raleway;
+    font-size: 8pt;
+    text-align: left;
+    color: white;
+    margin: 0;
+    overflow: hidden;
+	}
+
+.LoginBackground
+{
+    vertical-align: middle;
+    background-color: #FFFFFF;
+    box-shadow: 2px 2px 40px black;
+    border-radius: 20px;
+    margin: 0 auto; 
+    height:auto;
+    width:400px;
+    border-collapse: separate;
+    line-height: normal;
+}
+.login_main {
+    height: 100%;
+    width: 100%;
+    display: table;
+}
+.mastertable
+{
+    background: #022430;
+      width:100%;
+}
+.login_wrapper {
+    display: table-cell;
+    height: 100%;
+    vertical-align: middle;
+}
+	#lLogin
+	{
+		text-align:right;
+		
+	}
+	
+	#lPassword
+	{
+		text-align:right;
+		
+	}
+	
+	.titleLoginPage{	/* Title of items inside dragable boxes */
+		font-weight:bold;
+		font-size:1.7em;
+		margin:1px;
+		color:#B0C4DE;
+	}
+	
+	#loginDiv 
+	{
+		/*border-bottom: dotted 1px #B0C4DE;*/
+		border: dotted 1px #B0C4DE;
+		position:inherit;
+		width: 300px; 
+		margin-left: auto ;
+		margin-right: auto ;
+	}		
+		
+	input{
+		font-size:12px;
+	}
+
+
+	form{	/* No borders in forms */
+		display:inline;
+	}
+
+	img{
+		border:0px;
+	}
+
+
+.styled-button-7 {
+	background: #2EB8CB;
+	padding:5px 7px;
+	color:#fff;
+	font-family:'Helvetica Neue',sans-serif;
+	font-size:12px;
+	border-radius:4px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;	
+	border:1px solid #478EBB
+}
+
+  .login_textbox { 
+    background: white; 
+    border: 1px solid #CDD6ED; 
+    border-radius: 5px; 
+    box-shadow: 0 0 5px 3px #CDD6ED; 
+    color: #666; 
+    outline: none; 
+    height:23px; 
+    width: 275px; 
+  } 
+
+
+ 

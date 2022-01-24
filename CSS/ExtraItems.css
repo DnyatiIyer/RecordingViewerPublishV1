@@ -1,0 +1,33 @@
+﻿body {
+}
+.formbutton {
+border:none;
+    background-color: #478EBB;
+    color: #FFFFFF;
+    display: inline-block;
+    font-weight: bold;
+    padding: 8px 22px;
+    margin-left: 150px;
+    font-size: 0.9em;
+    letter-spacing: 1px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+#ListB 
+{
+	/*border-bottom: dotted 1px #B0C4DE;*/
+	border: dotted 1px #B0C4DE;
+	position:inherit;
+	width: 100px; 
+	margin-left: auto ;
+	margin-right: auto ;
+}	
+#TxtB 
+{
+	/*border-bottom: dotted 1px #B0C4DE;*/
+	border: dotted 1px #B0C4DE;
+	position:inherit;
+	width: 200px; 
+	margin-left: auto ;
+	margin-right: auto ;
+}

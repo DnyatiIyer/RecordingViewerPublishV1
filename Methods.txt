@@ -1,0 +1,74 @@
+ public string GetRecordig(string rec_key)
+    {
+        List<string> sourceFiles=new List<string>(); string xFile;
+        String RecPath = ConfigurationSettings.AppSettings["RecordingPath"];
+        String AR = ConfigurationSettings.AppSettings["ARDBName"];  
+        log.WriteLog(" RecPath " + RecPath);
+        string[] querydata;
+        string abc;
+        String StrSql = " Select  LEFT(RIGHT(LTRIM(RTRIM(rec.time_stamp)),17),4) + ";
+        StrSql = StrSql + "'\\' + LEFT(RIGHT(LTRIM(RTRIM(rec.time_stamp)),13),2) +";
+        StrSql = StrSql + "'\\' +  LEFT(RIGHT(LTRIM(RTRIM(rec.time_stamp)),11),2) +";
+        StrSql = StrSql + "'\\' + LEFT(RIGHT(LTRIM(RTRIM(rec.time_stamp)),9),2) +";
+        StrSql = StrSql + " '\\' + LEFT(RIGHT(LTRIM(RTRIM(rec.time_stamp)),7),2) +";
+        StrSql = StrSql + "'\\' + RIGHT(RTRIM(rec.time_stamp), 5)+rec.rec_key + rec.rec_time+'.'";
+        StrSql = StrSql + " + rec.codec As 'Source' from " + AR + ".[dbo].recording rec where";
+        StrSql = StrSql + " rec.rec_key='" + rec_key + "' order by rec.time_stamp asc";
+
+        IInstance instance = (IInstance)Session["instance"];
+        ISqlRunner sqlrunner = instance.SqlRunner;
+
+        ISqlCursor sqlcursor = sqlrunner.NewSqlCursor(StrSql);
+        ResultSet sqldata = sqlcursor.Fetch(0, Constants.MaxCursorFetchRows);
+        int count = sqldata.Count;
+        for (int m = 0; m <= count - 1; m++)
+        {
+            querydata = sqldata.Data[m];
+            abc = querydata[0].ToString();
+            xFile = "\\\\192.168.0.205\\c$\\Recording\\" + abc;
+            sourceFiles.Add(xFile);        
+        }
+        Concatenate("E:\\Debug\\a.wav", sourceFiles);
+        return "as";
+    }
+    public  void Concatenate(string outputFile, List<string> sourceFiles)
+    {
+        byte[] buffer = new byte[1024];
+        WaveFileWriter waveFileWriter = null;
+        try
+        {
+            foreach (string sourceFile in sourceFiles)
+            {
+                log.WriteLog(" sourceFile " + sourceFile);
+                using (WaveFileReader reader = new WaveFileReader(sourceFile))
+                {                    
+                    if (waveFileWriter == null)
+                    {
+                        waveFileWriter = new WaveFileWriter(outputFile, reader.WaveFormat);
+                    }
+                    else
+                    {
+                        if (!reader.WaveFormat.Equals(waveFileWriter.WaveFormat))
+                        {
+                            throw new InvalidOperationException("Can't concatenate WAV Files that don't share the same format");
+                        }
+                    }
+                    int read;
+                    while ((read = reader.Read(buffer, 0, buffer.Length)) > 0)
+                    {
+                        waveFileWriter.WriteData(buffer, 0, read);
+                    }
+                }
+            }
+        }
+            catch(Exception ex)
+        {
+            log.WriteLog(" Error " + ex.Message);
+        }
+        finally
+        {
+            if (waveFileWriter != null)
+            {
+                waveFileWriter.Dispose();
+            }
+        }
